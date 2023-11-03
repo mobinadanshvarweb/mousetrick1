@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      main {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
+      main > div {
+        width: 400px;
+        height: 500px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 25px 25px rgb(59, 59, 59);
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        opacity: 0;
+        /* transition: 0.3s; */
+      }
+      main > div > div {
+        width: 100%;
+        height: 85%;
+        display: flex;
+        border-radius: 5px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      main > div > div > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: 0.5s;
+      }
+
+      main > div > div > img:nth-of-type(2),
+      main > div > div > img:nth-of-type(3),
+      main > div > div > img:nth-of-type(4) {
+        left: 500px;
+      }
+      main > div > span {
+        display: flex;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: gray;
+        /* margin: 0 10px 0 10px; */
+        cursor: pointer;
+        /* transition: 0.5s; */
+      }
+      main > div > span:nth-of-type(1) {
+        background-color: #d81774;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="div1">
+        <div>
+          <img src="./img/55.avif" alt="" />
+          <img src="./img/22.avif" alt="" />
+          <img src="./img/99.avif" alt="" />
+          <img src="./img/44.jpg" alt="" />
+        </div>
+        <span id="span1"></span>
+        <span id="span2"></span>
+        <span id="span3"></span>
+        <span id="span4"></span>
+      </div>
+    </main>
+  </body>
+  <script>
+    let _main = document.getElementsByTagName("main")[0];
+    let _div1 = document.getElementById("div1");
+    let _span = document.querySelectorAll("main>div>span");
+    let _span1 = document.getElementById("span1");
+    let _span2 = document.getElementById("span2");
+    let _span3 = document.getElementById("span3");
+    let _span4 = document.getElementById("span4");
+    let _img1 = document.querySelector("main>div>div>img:nth-of-type(1)");
+    let _img2 = document.querySelector("main>div>div>img:nth-of-type(2)");
+    let _img3 = document.querySelector("main>div>div>img:nth-of-type(3)");
+    let _img4 = document.querySelector("main>div>div>img:nth-of-type(4)");
+
+    _main.addEventListener("mouseenter", () => {
+      _div1.style.opacity = "1";
+    });
+    _main.addEventListener("mouseleave", () => {
+      _div1.style.opacity = "0";
+    });
+    _div1.addEventListener("mousemove", (e) => {
+      console.log(e);
+      let x = 0;
+      let y = 0;
+      if (e.target.nodeName == "SPAN") {
+        x = e.layerX / 18;
+        y = e.layerY / 18;
+      } else {
+        x = e.offsetX / 6;
+        y = e.offsetY / 6;
+      }
+
+      let w = e.target.clientWidth / 6;
+      let h = e.target.clientHeight / 6;
+      _div1.style.transform =
+        "rotateY(" + (x - w / 2) + "deg) rotateX(" + (y - h / 2) + "deg)";
+    });
+    _div1.addEventListener("mouseout", () => {
+      _div1.style.transform = "rotate(0deg)";
+    });
+
+    _span.forEach((item, index, array) => {
+      item.addEventListener("click", () => {
+        item.style.backgroundColor = "gray";
+        if (index == 0) {
+          _img1.style.left = "0px";
+          _img2.style.left = "500px";
+          _img3.style.left = "500px";
+          _img4.style.left = "500px";
+          _span1.style.backgroundColor = "#D81774";
+          _span2.style.backgroundColor = "gray";
+          _span3.style.backgroundColor = "gray";
+          _span4.style.backgroundColor = "gray";
+        } else if (index == 1) {
+          _img2.style.left = "0";
+          _img1.style.left = "500px";
+          _img3.style.left = "500px";
+          _img4.style.left = "500px";
+          _span2.style.backgroundColor = "#8D002A";
+          _span1.style.backgroundColor = "gray";
+          _span3.style.backgroundColor = "gray";
+          _span4.style.backgroundColor = "gray";
+        } else if (index == 2) {
+          _img3.style.left = "0";
+          _img1.style.left = "500px";
+          _img2.style.left = "500px";
+          _img4.style.left = "500px";
+          _span3.style.backgroundColor = "#C95C69";
+          _span2.style.backgroundColor = "gray";
+          _span1.style.backgroundColor = "gray";
+          _span4.style.backgroundColor = "gray";
+        } else if (index == 3) {
+          _img4.style.left = "0";
+          _img1.style.left = "500px";
+          _img2.style.left = "500px";
+          _img3.style.left = "500px";
+          span4.style.backgroundColor = "#5E0432";
+          span2.style.backgroundColor = "gray";
+          span3.style.backgroundColor = "gray";
+          span1.style.backgroundColor = "gray";
+        }
+      });
+    });
+  </script>
+</html>
